@@ -5,14 +5,22 @@ const sectionRef = ref(null)
 let observer
 const isVideoReady = ref(false)
 const videoRef = ref(null)
+const isPlaying = ref(false)
 const onVideoReady = () => {
   isVideoReady.value = true
 }
 const tryPlay = () => {
   const video = videoRef.value
   if (video) {
+    video.muted = true
     video.play().catch(() => {})
   }
+}
+const onPlay = () => {
+  isPlaying.value = true
+}
+const onPause = () => {
+  isPlaying.value = false
 }
 
 onMounted(() => {
@@ -30,6 +38,13 @@ onMounted(() => {
     observer.observe(sectionRef.value)
   }
 
+  const video = videoRef.value
+  if (video) {
+    video.muted = true
+    video.setAttribute('playsinline', '')
+    video.setAttribute('webkit-playsinline', '')
+    video.load()
+  }
   tryPlay()
 })
 
@@ -39,7 +54,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section ref="sectionRef" class="prana-section reveal-section relative w-full overflow-hidden bg-[#f4e6df]">
+  <section ref="sectionRef" class="prana-section reveal-section relative w-full overflow-hidden bg-[#f4e6df]" @touchstart="tryPlay" @click="tryPlay">
     <video
       ref="videoRef"
       class="absolute inset-0 h-full w-full object-cover"
@@ -51,11 +66,22 @@ onBeforeUnmount(() => {
       preload="auto"
       @loadeddata="onVideoReady"
       @canplay="onVideoReady"
-      @click="tryPlay"
+      @play="onPlay"
+      @pause="onPause"
     ></video>
     <div v-if="!isVideoReady" class="absolute inset-0 flex items-center justify-center bg-[#f4e6df]/70">
       <div class="video-loader"></div>
     </div>
+    <button
+      v-if="isVideoReady && !isPlaying"
+      class="absolute inset-0 flex items-center justify-center text-black/70"
+      type="button"
+      aria-label="Play video"
+    >
+      <span class="rounded-full bg-white/80 px-4 py-2 text-[10px] font-montserrat uppercase tracking-[0.18em]">
+        Tap To Play
+      </span>
+    </button>
     <div class="absolute inset-0 bg-[#f4e6df]/70"></div>
 
     <div class="relative mx-auto w-full max-w-[1280px] px-8 py-16">

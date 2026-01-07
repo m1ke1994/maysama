@@ -3,23 +3,38 @@ import { onMounted, ref } from 'vue'
 
 const isVideoReady = ref(false)
 const videoRef = ref(null)
+const isPlaying = ref(false)
 const onVideoReady = () => {
   isVideoReady.value = true
 }
 const tryPlay = () => {
   const video = videoRef.value
   if (video) {
+    video.muted = true
     video.play().catch(() => {})
   }
 }
+const onPlay = () => {
+  isPlaying.value = true
+}
+const onPause = () => {
+  isPlaying.value = false
+}
 
 onMounted(() => {
+  const video = videoRef.value
+  if (video) {
+    video.muted = true
+    video.setAttribute('playsinline', '')
+    video.setAttribute('webkit-playsinline', '')
+    video.load()
+  }
   tryPlay()
 })
 </script>
 
 <template>
-  <section class="reveal-section w-full">
+  <section class="reveal-section w-full" @touchstart="tryPlay" @click="tryPlay">
     <div class="relative h-[420px] w-full overflow-hidden bg-black">
       <video
         ref="videoRef"
@@ -32,11 +47,22 @@ onMounted(() => {
         preload="auto"
         @loadeddata="onVideoReady"
         @canplay="onVideoReady"
-        @click="tryPlay"
+        @play="onPlay"
+        @pause="onPause"
       ></video>
       <div v-if="!isVideoReady" class="absolute inset-0 flex items-center justify-center bg-black/30">
         <div class="video-loader"></div>
       </div>
+      <button
+        v-if="isVideoReady && !isPlaying"
+        class="absolute inset-0 flex items-center justify-center text-white/90"
+        type="button"
+        aria-label="Play video"
+      >
+        <span class="rounded-full bg-black/50 px-4 py-2 text-[10px] font-montserrat uppercase tracking-[0.18em]">
+          Tap To Play
+        </span>
+      </button>
       <div class="absolute inset-0 bg-black/10"></div>
       <div class="relative mx-auto flex h-full w-full max-w-[1280px] items-center px-6">
         <div class="max-w-[520px] text-white">
