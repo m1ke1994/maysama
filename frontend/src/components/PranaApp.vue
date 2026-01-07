@@ -3,6 +3,10 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const sectionRef = ref(null)
 let observer
+const isVideoReady = ref(false)
+const onVideoReady = () => {
+  isVideoReady.value = true
+}
 
 onMounted(() => {
   observer = new IntersectionObserver(
@@ -26,7 +30,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section ref="sectionRef" class="prana-section relative w-full overflow-hidden bg-[#f4e6df]">
+  <section ref="sectionRef" class="prana-section reveal-section relative w-full overflow-hidden bg-[#f4e6df]">
     <video
       class="absolute inset-0 h-full w-full object-cover"
       src="/video/Hero-2.mp4"
@@ -34,7 +38,12 @@ onBeforeUnmount(() => {
       muted
       loop
       playsinline
+      @loadeddata="onVideoReady"
+      @canplay="onVideoReady"
     ></video>
+    <div v-if="!isVideoReady" class="absolute inset-0 flex items-center justify-center bg-[#f4e6df]/70">
+      <div class="video-loader"></div>
+    </div>
     <div class="absolute inset-0 bg-[#f4e6df]/70"></div>
 
     <div class="relative mx-auto w-full max-w-[1280px] px-8 py-16">
@@ -111,5 +120,20 @@ onBeforeUnmount(() => {
 
 .prana-section.is-visible .fade-in:nth-of-type(4) {
   animation-delay: 420ms;
+}
+
+.video-loader {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-top-color: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

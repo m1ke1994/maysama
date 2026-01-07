@@ -1,5 +1,14 @@
+<script setup>
+import { ref } from 'vue'
+
+const isVideoReady = ref(false)
+const onVideoReady = () => {
+  isVideoReady.value = true
+}
+</script>
+
 <template>
-  <section class="w-full">
+  <section class="reveal-section w-full">
     <div class="relative h-[420px] w-full overflow-hidden bg-black">
       <video
         class="absolute inset-0 h-full w-full object-cover"
@@ -8,7 +17,12 @@
         muted
         loop
         playsinline
+        @loadeddata="onVideoReady"
+        @canplay="onVideoReady"
       ></video>
+      <div v-if="!isVideoReady" class="absolute inset-0 flex items-center justify-center bg-black/30">
+        <div class="video-loader"></div>
+      </div>
       <div class="absolute inset-0 bg-black/10"></div>
       <div class="relative mx-auto flex h-full w-full max-w-[1280px] items-center px-6">
         <div class="max-w-[520px] text-white">
@@ -51,3 +65,20 @@
     </div>
   </section>
 </template>
+
+<style scoped>
+.video-loader {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-white py-10">
+  <section class="reveal-section bg-white py-10">
     <div class="mx-auto w-full max-w-[920px] px-6">
       <div class="space-y-6">
         <div class="grid overflow-hidden rounded-2xl bg-white shadow-[0_2px_10px_rgba(0,0,0,0.08)] md:grid-cols-2">
