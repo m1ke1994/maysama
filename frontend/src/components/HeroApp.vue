@@ -1,0 +1,53 @@
+<template>
+  <section class="w-full">
+    <div class="relative h-[420px] w-full overflow-hidden bg-black">
+      <video
+        class="absolute inset-0 h-full w-full object-cover"
+        src="/video/HeroBlock.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+      <div class="absolute inset-0 bg-black/10"></div>
+      <div class="relative mx-auto flex h-full w-full max-w-[1280px] items-center px-6">
+        <div class="max-w-[520px] text-white">
+          <h1 class="text-[36px] font-semibold leading-tight">
+            Powered by Pulse.<br>
+            Grounded in Nature.
+          </h1>
+          <p class="mt-3 text-[12px] leading-relaxed text-white/85">
+            Advanced pulsed-LED therapy paired with synergistic skincare
+            formulas. Welcome to the future of at-home skin care.
+          </p>
+          <button
+            class="btn-primary mt-5 rounded-full px-5 py-2 text-[10px] font-montserrat uppercase tracking-[0.16em]"
+            type="button"
+          >
+            Shop Maysama
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-[#f4e9e3] py-12">
+      <div class="mx-auto w-full max-w-[780px] px-6 text-center">
+        <h2 class="text-[22px] font-semibold uppercase tracking-[0.18em] text-black/80">
+          Optimising <span class="text-[var(--color-primary)]">Skin</span> Health
+        </h2>
+        <p class="mx-auto mt-4 max-w-[620px] text-[12px] leading-relaxed text-black/60">
+          Maysama combines AEG-rooibos with LED Light Therapy to accelerate and amplify
+          results for skin rejuvenation. Our unique bioactive ingredient, Aspalathin-enriched
+          Green Rooibos Extract, is proven to complement the action of your red light device
+          and increase the efficacy to help tackle signs of aging.
+        </p>
+        <button
+          class="btn-primary mt-6 rounded-full px-6 py-2 text-[10px] font-montserrat uppercase tracking-[0.14em]"
+          type="button"
+        >
+          Learn More
+        </button>
+      </div>
+    </div>
+  </section>
+</template>

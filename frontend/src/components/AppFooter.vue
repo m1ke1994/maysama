@@ -61,7 +61,7 @@
           </div>
           <div class="mt-3 flex items-center gap-4">
             <button
-              class="rounded-full bg-black px-6 py-2 text-[11px] font-montserrat uppercase tracking-[0.16em] text-white"
+              class="btn-primary rounded-full px-6 py-2 text-[11px] font-montserrat uppercase tracking-[0.16em]"
               type="button"
             >
               Sign Me Up!
