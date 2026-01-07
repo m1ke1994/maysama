@@ -4,8 +4,15 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 const sectionRef = ref(null)
 let observer
 const isVideoReady = ref(false)
+const videoRef = ref(null)
 const onVideoReady = () => {
   isVideoReady.value = true
+}
+const tryPlay = () => {
+  const video = videoRef.value
+  if (video) {
+    video.play().catch(() => {})
+  }
 }
 
 onMounted(() => {
@@ -22,6 +29,8 @@ onMounted(() => {
   if (sectionRef.value) {
     observer.observe(sectionRef.value)
   }
+
+  tryPlay()
 })
 
 onBeforeUnmount(() => {
@@ -32,14 +41,17 @@ onBeforeUnmount(() => {
 <template>
   <section ref="sectionRef" class="prana-section reveal-section relative w-full overflow-hidden bg-[#f4e6df]">
     <video
+      ref="videoRef"
       class="absolute inset-0 h-full w-full object-cover"
       src="/video/Hero-2.mp4"
       autoplay
       muted
       loop
       playsinline
+      preload="auto"
       @loadeddata="onVideoReady"
       @canplay="onVideoReady"
+      @click="tryPlay"
     ></video>
     <div v-if="!isVideoReady" class="absolute inset-0 flex items-center justify-center bg-[#f4e6df]/70">
       <div class="video-loader"></div>

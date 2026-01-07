@@ -1,24 +1,38 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const isVideoReady = ref(false)
+const videoRef = ref(null)
 const onVideoReady = () => {
   isVideoReady.value = true
 }
+const tryPlay = () => {
+  const video = videoRef.value
+  if (video) {
+    video.play().catch(() => {})
+  }
+}
+
+onMounted(() => {
+  tryPlay()
+})
 </script>
 
 <template>
   <section class="reveal-section w-full">
     <div class="relative h-[420px] w-full overflow-hidden bg-black">
       <video
+        ref="videoRef"
         class="absolute inset-0 h-full w-full object-cover"
         src="/video/HeroBlock.mp4"
         autoplay
         muted
         loop
         playsinline
+        preload="auto"
         @loadeddata="onVideoReady"
         @canplay="onVideoReady"
+        @click="tryPlay"
       ></video>
       <div v-if="!isVideoReady" class="absolute inset-0 flex items-center justify-center bg-black/30">
         <div class="video-loader"></div>

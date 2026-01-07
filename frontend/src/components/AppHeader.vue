@@ -20,8 +20,23 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', updateHeaderHeight)
 })
 
+const lockScroll = (lock) => {
+  const html = document.documentElement
+  document.body.style.overflow = lock ? 'hidden' : ''
+  html.style.overflow = lock ? 'hidden' : ''
+  if (lock) {
+    window.addEventListener('touchmove', preventTouchScroll, { passive: false })
+  } else {
+    window.removeEventListener('touchmove', preventTouchScroll)
+  }
+}
+
+const preventTouchScroll = (event) => {
+  event.preventDefault()
+}
+
 watch(isMenuOpen, (open) => {
-  document.body.style.overflow = open ? 'hidden' : ''
+  lockScroll(open)
 })
 </script>
 

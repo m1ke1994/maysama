@@ -4,7 +4,7 @@
       <div class="marquee-track">
         <div class="marquee-group">
           <div class="brand-item flex items-center gap-3">
-            <span class="text-[30px]">✿</span>
+            <span class="text-[30px]">*</span>
             <span>The Vegan</span>
           </div>
           <span class="brand-item tracking-[0.3em]">TATLER</span>
@@ -19,7 +19,7 @@
         </div>
         <div class="marquee-group" aria-hidden="true">
           <div class="brand-item flex items-center gap-3">
-            <span class="text-[30px]">✿</span>
+            <span class="text-[30px]">*</span>
             <span>The Vegan</span>
           </div>
           <span class="brand-item tracking-[0.3em]">TATLER</span>
@@ -59,7 +59,7 @@
   gap: 5rem;
   width: 50%;
   flex: 0 0 50%;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.8);
   white-space: nowrap;
@@ -83,6 +83,29 @@
 
   .marquee-group {
     gap: 1.5rem;
+    font-size: 18px;
+  }
+
+  .marquee-group .text-\[30px\] {
+    font-size: 20px;
+  }
+
+  .marquee-group .text-\[22px\] {
+    font-size: 14px;
+  }
+
+  .marquee-group .text-\[28px\] {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hide-sm {
+    display: none;
+  }
+
+  .marquee-group {
+    gap: 1rem;
     font-size: 14px;
   }
 
@@ -97,32 +120,9 @@
   .marquee-group .text-\[28px\] {
     font-size: 14px;
   }
-}
-
-@media (max-width: 640px) {
-  .hide-sm {
-    display: none;
-  }
-
-  .marquee-group {
-    gap: 1rem;
-    font-size: 11px;
-  }
-
-  .marquee-group .text-\[30px\] {
-    font-size: 12px;
-  }
-
-  .marquee-group .text-\[22px\] {
-    font-size: 11px;
-  }
-
-  .marquee-group .text-\[28px\] {
-    font-size: 11px;
-  }
 
   .marquee-group .text-\[12px\] {
-    font-size: 8px;
+    font-size: 10px;
   }
 }
 </style>
